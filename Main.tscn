@@ -1,0 +1,118 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Level0.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Protagonist.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Main.gd" type="Script" id=3]
+[ext_resource path="res://AlgorithmButtonGroup.tres" type="ButtonGroup" id=4]
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Level" parent="." instance=ExtResource( 1 )]
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Protagonist" parent="." instance=ExtResource( 2 )]
+position = Vector2( 94.3759, 211.048 )
+scale = Vector2( 0.15, 0.15 )
+script = null
+
+[node name="Debug" type="MarginContainer" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 117.0
+margin_bottom = 42.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Debug"]
+margin_right = 160.0
+margin_bottom = 106.0
+color = Color( 0, 0, 0, 0.45098 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Grid" type="GridContainer" parent="Debug"]
+margin_right = 160.0
+margin_bottom = 106.0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MousePositionLabel" type="Label" parent="Debug/Grid"]
+margin_right = 132.0
+margin_bottom = 14.0
+text = "Mouse Position"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MousePosition" type="Label" parent="Debug/Grid"]
+margin_left = 136.0
+margin_right = 160.0
+margin_bottom = 14.0
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridPositionLabel" type="Label" parent="Debug/Grid"]
+margin_top = 18.0
+margin_right = 132.0
+margin_bottom = 32.0
+text = "Grid Position"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridPosition" type="Label" parent="Debug/Grid"]
+margin_left = 136.0
+margin_top = 18.0
+margin_right = 160.0
+margin_bottom = 32.0
+text = "0"
+
+[node name="ProtagonistPositionLabel" type="Label" parent="Debug/Grid"]
+margin_top = 36.0
+margin_right = 132.0
+margin_bottom = 50.0
+text = "Protiagonist Position"
+
+[node name="ProtagonistPosition" type="Label" parent="Debug/Grid"]
+margin_left = 136.0
+margin_top = 36.0
+margin_right = 160.0
+margin_bottom = 50.0
+text = "0"
+
+[node name="DijkstraLabel" type="Label" parent="Debug/Grid"]
+margin_top = 59.0
+margin_right = 132.0
+margin_bottom = 73.0
+text = "Dijkstra on click"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Dijkstra" type="CheckBox" parent="Debug/Grid"]
+margin_left = 136.0
+margin_top = 54.0
+margin_right = 160.0
+margin_bottom = 78.0
+pressed = true
+group = ExtResource( 4 )
+
+[node name="AStarLabel" type="Label" parent="Debug/Grid"]
+margin_top = 87.0
+margin_right = 132.0
+margin_bottom = 101.0
+text = "A* on mouseover"
+
+[node name="AStar" type="CheckBox" parent="Debug/Grid"]
+margin_left = 136.0
+margin_top = 82.0
+margin_right = 160.0
+margin_bottom = 106.0
+group = ExtResource( 4 )

@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Protagonist.tres" type="SpriteFrames" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var path = null
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+	
+func setPath(path: PoolVector2Array):
+	self.path = path
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+# func _process(delta):
+#	for i in range(0, path.size):
+		
+#	pass
+"
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[node name="Protagonist" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+shape = SubResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D"]
+position = Vector2( -2.37854, -147.462 )
+frames = ExtResource( 1 )
+animation = "SE"

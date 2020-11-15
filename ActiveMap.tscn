@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="ActiveMap" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+mode = 1
+cell_size = Vector2( 128, 76 )
+format = 1
