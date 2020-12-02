@@ -42,7 +42,9 @@ static func dijkstra(grid: Array, src: Vector2, dest: Vector2):
 				var prev = reference_table[dest]['previous']
 				path.append(prev)
 				dest = prev
+			path.invert()
 			return path
+			
 		if current == null:
 			return[]
 			

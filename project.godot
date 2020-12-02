@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "DraftLevel",
 "language": "GDScript",
 "path": "res://scripts/DraftLevel.gd"
+}, {
+"base": "Node",
+"class": "Protagonist",
+"language": "GDScript",
+"path": "res://scripts/Protagonist.gd"
 } ]
 _global_script_class_icons={
-"DraftLevel": ""
+"DraftLevel": "",
+"Protagonist": ""
 }
 
 [application]
@@ -26,6 +32,8 @@ config/icon="res://icon.png"
 
 [display]
 
+window/size/width=1280
+window/size/height=720
 window/stretch/aspect="keep"
 
 [rendering]

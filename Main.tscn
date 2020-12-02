@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Level0.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Protagonist.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Main.gd" type="Script" id=3]
 [ext_resource path="res://AlgorithmButtonGroup.tres" type="ButtonGroup" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 0, 0, 0, 0.521569 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
@@ -14,105 +21,124 @@ scale = Vector2( 0.5, 0.5 )
 [node name="Protagonist" parent="." instance=ExtResource( 2 )]
 position = Vector2( 94.3759, 211.048 )
 scale = Vector2( 0.15, 0.15 )
-script = null
 
-[node name="Debug" type="MarginContainer" parent="."]
+[node name="Camera2D" type="Camera2D" parent="Protagonist"]
+current = true
+
+[node name="Debug" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="Debug"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 117.0
-margin_bottom = 42.0
+margin_right = 160.0
+margin_bottom = 110.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="Debug"]
-margin_right = 160.0
-margin_bottom = 106.0
-color = Color( 0, 0, 0, 0.45098 )
+[node name="PanelContainer" type="PanelContainer" parent="Debug/MarginContainer"]
+margin_right = 212.0
+margin_bottom = 134.0
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Grid" type="GridContainer" parent="Debug"]
-margin_right = 160.0
-margin_bottom = 106.0
+[node name="Grid" type="GridContainer" parent="Debug/MarginContainer/PanelContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 207.0
+margin_bottom = 129.0
 columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MousePositionLabel" type="Label" parent="Debug/Grid"]
-margin_right = 132.0
+[node name="MousePositionLabel" type="Label" parent="Debug/MarginContainer/PanelContainer/Grid"]
+margin_right = 174.0
 margin_bottom = 14.0
 text = "Mouse Position"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MousePosition" type="Label" parent="Debug/Grid"]
-margin_left = 136.0
-margin_right = 160.0
+[node name="MousePosition" type="Label" parent="Debug/MarginContainer/PanelContainer/Grid"]
+margin_left = 178.0
+margin_right = 202.0
 margin_bottom = 14.0
 text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GridPositionLabel" type="Label" parent="Debug/Grid"]
+[node name="GridPositionLabel" type="Label" parent="Debug/MarginContainer/PanelContainer/Grid"]
 margin_top = 18.0
-margin_right = 132.0
+margin_right = 174.0
 margin_bottom = 32.0
 text = "Grid Position"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GridPosition" type="Label" parent="Debug/Grid"]
-margin_left = 136.0
+[node name="GridPosition" type="Label" parent="Debug/MarginContainer/PanelContainer/Grid"]
+margin_left = 178.0
 margin_top = 18.0
-margin_right = 160.0
+margin_right = 202.0
 margin_bottom = 32.0
 text = "0"
 
-[node name="ProtagonistPositionLabel" type="Label" parent="Debug/Grid"]
+[node name="ProtagonistPositionWorldLabel" type="Label" parent="Debug/MarginContainer/PanelContainer/Grid"]
 margin_top = 36.0
-margin_right = 132.0
+margin_right = 174.0
 margin_bottom = 50.0
-text = "Protiagonist Position"
+text = "Protiagonist Position World"
 
-[node name="ProtagonistPosition" type="Label" parent="Debug/Grid"]
-margin_left = 136.0
+[node name="ProtagonistPositionWorld" type="Label" parent="Debug/MarginContainer/PanelContainer/Grid"]
+margin_left = 178.0
 margin_top = 36.0
-margin_right = 160.0
+margin_right = 202.0
 margin_bottom = 50.0
 text = "0"
 
-[node name="DijkstraLabel" type="Label" parent="Debug/Grid"]
-margin_top = 59.0
-margin_right = 132.0
-margin_bottom = 73.0
-text = "Dijkstra on click"
+[node name="ProtagonistPositionMapLabel" type="Label" parent="Debug/MarginContainer/PanelContainer/Grid"]
+margin_top = 54.0
+margin_right = 174.0
+margin_bottom = 68.0
+text = "Protiagonist Position Map"
+
+[node name="ProtagonistPositionMap" type="Label" parent="Debug/MarginContainer/PanelContainer/Grid"]
+margin_left = 178.0
+margin_top = 54.0
+margin_right = 202.0
+margin_bottom = 68.0
+text = "0"
+
+[node name="DijkstraLabel" type="Label" parent="Debug/MarginContainer/PanelContainer/Grid"]
+margin_top = 77.0
+margin_right = 174.0
+margin_bottom = 91.0
+text = "Dijkstra Algorithm"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Dijkstra" type="CheckBox" parent="Debug/Grid"]
-margin_left = 136.0
-margin_top = 54.0
-margin_right = 160.0
-margin_bottom = 78.0
+[node name="Dijkstra" type="CheckBox" parent="Debug/MarginContainer/PanelContainer/Grid"]
+margin_left = 178.0
+margin_top = 72.0
+margin_right = 202.0
+margin_bottom = 96.0
 pressed = true
 group = ExtResource( 4 )
 
-[node name="AStarLabel" type="Label" parent="Debug/Grid"]
-margin_top = 87.0
-margin_right = 132.0
-margin_bottom = 101.0
-text = "A* on mouseover"
+[node name="AStarLabel" type="Label" parent="Debug/MarginContainer/PanelContainer/Grid"]
+margin_top = 105.0
+margin_right = 174.0
+margin_bottom = 119.0
+text = "A* Algorithm"
 
-[node name="AStar" type="CheckBox" parent="Debug/Grid"]
-margin_left = 136.0
-margin_top = 82.0
-margin_right = 160.0
-margin_bottom = 106.0
+[node name="AStar" type="CheckBox" parent="Debug/MarginContainer/PanelContainer/Grid"]
+margin_left = 178.0
+margin_top = 100.0
+margin_right = 202.0
+margin_bottom = 124.0
 group = ExtResource( 4 )

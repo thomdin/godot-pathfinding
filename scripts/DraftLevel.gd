@@ -23,6 +23,12 @@ func highlight_tiles(tiles: Array):
 func get_accessible_cells() -> Array:
 	return self.tilemap_accessible_cells.get_used_cells()
 
+func world_to_map(position_world: Vector2) -> Vector2: 
+	return self.tilemap_accessible_cells.world_to_map(position_world)
+
+func map_to_world(position_map: Vector2) -> Vector2:
+	return self.tilemap_accessible_cells.map_to_world(position_map)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

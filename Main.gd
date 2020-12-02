@@ -9,11 +9,13 @@ var cells : Array = []
 var grid_positions_to_points : Dictionary = {}
 var position_mouse : Vector2 = Vector2(0, 0)
 var position_grid : Vector2 = Vector2(0, 0)
+var level_scale_factor = 2 # Because the level is scaled to half of its size
 var astar = AStar2D.new()
-onready var debug : GridContainer = $Debug/Grid
+onready var debug : GridContainer = $Debug/MarginContainer/PanelContainer/Grid
 onready var level : DraftLevel = $Level
-onready var checkbox_dijkstra : CheckBox = $Debug/Grid/Dijkstra
-onready var checkbox_astar : CheckBox = $Debug/Grid/AStar
+onready var checkbox_dijkstra : CheckBox = $Debug/MarginContainer/PanelContainer/Grid/Dijkstra
+onready var checkbox_astar : CheckBox = $Debug/MarginContainer/PanelContainer/Grid/AStar
+onready var protagonist : Protagonist = $Protagonist
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -43,46 +45,36 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	self.position_mouse = get_global_mouse_position()
-	self.position_mouse.x = self.position_mouse.x 
-	self.position_mouse.y = self.position_mouse.y
-	var _position_grid = level.tilemap_accessible_cells.world_to_map(self.position_mouse * 2)
-	if _position_grid == self.position_grid:
-		return
-	self.position_grid = _position_grid
+	var mouse_position = get_global_mouse_position()
+	self.position_grid = level.world_to_map(mouse_position * self.level_scale_factor)
 	
-	debug.get_node("MousePosition").text = "(" + String(position_mouse.x) + ", " + String(position_mouse.y) + ")"
-	debug.get_node("GridPosition").text = "(" + String(position_grid.x) + ", " + String(position_grid.y) + ")"
-	debug.get_node("ProtagonistPosition").text = "(" + String($Protagonist.position.x) + ", " + String($Protagonist.position.y) + ")"
-	
-	if not checkbox_astar.pressed:
-		return
-		
-	var src = level.tilemap_accessible_cells.world_to_map($Protagonist.global_position * 2)
-	if self.grid_positions_to_points.has(self.position_grid):
-		var path = astar.get_point_path(self.grid_positions_to_points[src], self.grid_positions_to_points[self.position_grid])
-		level.highlight_tiles(path)	
-	
-#	pass
+	debug.get_node("MousePosition").text = String(mouse_position)
+	debug.get_node("GridPosition").text = String(self.position_grid)
+	debug.get_node("ProtagonistPositionWorld").text = String(self.protagonist.global_position)
+	debug.get_node("ProtagonistPositionMap").text = String(level.world_to_map(protagonist.global_position * self.level_scale_factor))
 
 
 func _unhandled_input(event: InputEvent):
 	pass
 	if not event is InputEventMouseButton:
 		return
+		
 	if event.button_index != BUTTON_LEFT or not event.is_pressed():
-		return
-	
-	if not self.checkbox_dijkstra.pressed:
 		return
 		
 	if not self.position_grid in self.cells:
-		return		
-
-	var target_position = level.tilemap_accessible_cells.map_to_world(self.position_grid) / 2
-
-	var src = level.tilemap_accessible_cells.world_to_map($Protagonist.global_position * 2)
-	var path = pathfinding.dijkstra(self.cells, src, self.position_grid)
+		return
+	
+	var src = level.world_to_map(self.protagonist.global_position * self.level_scale_factor)
+		
+	var target_position = level.map_to_world(self.position_grid) / self.level_scale_factor
+	
+	var path = []
+	if checkbox_dijkstra.pressed:
+		path = pathfinding.dijkstra(self.cells, src, self.position_grid)
+	elif checkbox_astar.pressed:
+		path = astar.get_point_path(self.grid_positions_to_points[src], self.grid_positions_to_points[self.position_grid])
 	level.highlight_tiles(path)
+	self.protagonist.move_along_path(path, self.level, self.level_scale_factor)
 	
 
